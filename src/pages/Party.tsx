@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
+import { SectionHeader, SectionHeaderButton } from "./party/SectionHeader";
 import { Navbar } from "../shared-components/Navbar";
 
 import { PartyServer } from "../models/PartyServer";
@@ -47,15 +48,9 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 			<main className="wrapper space-y-20">
 				<section className="space-y-6">
-					<header className="flex justify-between border-b-2 text-base">
-						<h2 className="-mb-2px pb-3 border-b-2 border-party-purple uppercase text-gray-800 font-bold pointer-events-none">
-							Sort by
-						</h2>
-
-						<button type="button" className="px-3 py-2 -mt-3 -mr-3 mb-1 text-party-purple">
-							Reset
-						</button>
-					</header>
+					<SectionHeader title="Sort by">
+						<SectionHeaderButton>Reset</SectionHeaderButton>
+					</SectionHeader>
 
 					<article className="px-3 py-4 space-y-3 rounded bg-gray-300">
 						<div className="py-2 shadow-md rounded bg-white text-xl space-y-1">
@@ -159,10 +154,9 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 				</section>
 
 				<section className="space-y-4">
-					<header className="flex justify-between">
-						<h2 className="uppercase">The Servers</h2>
-						<button type="button">Refresh</button>
-					</header>
+					<SectionHeader title="The Servers">
+						<SectionHeaderButton>Refresh</SectionHeaderButton>
+					</SectionHeader>
 
 					<ul className="space-y-3">
 						{servers.map(({ name, distance }) => (
