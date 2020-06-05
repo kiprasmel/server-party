@@ -1,5 +1,5 @@
 {
-	"name": "serverparty",
+	"name": "server-party",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -12,7 +12,9 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "    eslint . --ext js,jsx,ts,tsx",
-		"lint:fix": "eslint . --ext js,jsx,ts,tsx --fix"
+		"lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
+		"predeploy": "yarn build",
+		"deploy": "yarn netlify deploy"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-sarpik"
@@ -39,6 +41,7 @@
 		"@types/react-dom": "^16.9.0",
 		"@types/react-router-dom": "^5.1.5",
 		"axios": "^0.19.2",
+		"netlify-cli": "^2.53.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.2.0",
