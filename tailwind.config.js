@@ -8,6 +8,10 @@ module.exports = {
 				"party-purple": "#6400cf",
 				"party-black": "#222222",
 			},
+			spacing: {
+				"2px": "2px",
+				"-2px": "-2px",
+			},
 		},
 	},
 	variants: {},
