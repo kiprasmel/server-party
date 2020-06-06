@@ -12,6 +12,10 @@ import { fetchServers } from "../utils/fetchServers";
 import { getUniqueLocations } from "../utils/getUniqueLocations";
 
 export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	const { auth, redirectToLoginIfNoAuth } = useAuth();
 
 	const { sorters, dispatchSorter, previousSorters } = useServerSorters();
