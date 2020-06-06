@@ -2,7 +2,11 @@ import React, { FC } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-export const Navbar: FC = (props) => {
+interface Props {
+	distractionless?: boolean;
+}
+
+export const Navbar: FC<Props> = ({ distractionless = false, ...props }) => {
 	const { isAuthenticated, revokeAuth } = useAuth();
 	const history = useHistory();
 
@@ -14,24 +18,27 @@ export const Navbar: FC = (props) => {
 						<Link to="/">Server Party</Link>
 					</h1>
 				</li>
-				<li className="ml-auto">
-					{isAuthenticated ? (
-						<button
-							type="button"
-							onClick={() => {
-								revokeAuth();
-								history.push("/");
-							}}
-							className="inline-block px-3 py-1 text-lg"
-						>
-							Log off
-						</button>
-					) : (
-						<Link to="/login" className="inline-block px-3 py-1 border border-gray-500 rounded">
-							Log in
-						</Link>
-					)}
-				</li>
+
+				{!distractionless && (
+					<li className="ml-auto">
+						{isAuthenticated ? (
+							<button
+								type="button"
+								onClick={() => {
+									revokeAuth();
+									history.push("/");
+								}}
+								className="inline-block px-3 py-1 text-lg"
+							>
+								Log off
+							</button>
+						) : (
+							<Link to="/login" className="inline-block px-3 py-1 border border-gray-500 rounded">
+								Log in
+							</Link>
+						)}
+					</li>
+				)}
 			</ul>
 		</nav>
 	);
