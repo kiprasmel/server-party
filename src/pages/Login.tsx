@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
-import { saveAuthToken, authenticate } from "../utils/auth";
+import { saveAuthDetails, authenticate, bearerify } from "../utils/auth";
 import { fetchServers } from "../utils/fetchServers";
 import { delay } from "../utils/delay";
 
@@ -62,7 +62,7 @@ export const Login: FC<{}> = () => {
 		try {
 			const rawToken: string = await authenticate(username, password);
 
-			const bearerToken: string = saveAuthToken(rawToken);
+			const { bearerToken } = saveAuthDetails({ bearerToken: bearerify(rawToken), username });
 
 			setStatusState({ type: "success", token: bearerToken });
 

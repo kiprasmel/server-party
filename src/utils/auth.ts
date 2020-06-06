@@ -1,18 +1,22 @@
 import axios from "axios";
 
-const localStorageAuthKey: string = "__auth_token";
+import { AuthDetails, localStorageAuthDetailsKey } from "../models/AuthDetails";
 
-/** TODO use context / redux? Would still be kinda overkill lol */
-export function saveAuthToken(rawToken: string, bearerToken: string = `Bearer ${rawToken}`): string {
-	localStorage.setItem(localStorageAuthKey, bearerToken);
-
-	return bearerToken;
+export function bearerify(rawToken: string) {
+	return `Bearer ${rawToken}`;
 }
 
-export function getAuthToken(): string | null {
-	const token: string | null = localStorage.getItem(localStorageAuthKey);
+/** TODO use context / redux? Would still be kinda overkill lol */
+export function saveAuthDetails(auth: AuthDetails): AuthDetails {
+	localStorage.setItem(localStorageAuthDetailsKey, JSON.stringify(auth));
 
-	return token;
+	return auth;
+}
+
+export function getAuthDetails(): AuthDetails | null {
+	const authStr: string | null = localStorage.getItem(localStorageAuthDetailsKey);
+
+	return !authStr ? null : JSON.parse(authStr);
 }
 
 export async function authenticate(username: string, password: string): Promise<string> {
