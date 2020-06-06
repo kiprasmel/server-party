@@ -34,7 +34,10 @@ interface ButtonProps
 export const SectionHeaderButton: FC<ButtonProps> = ({ extraClassName = "", children, ...props }) => (
 	<button
 		type="button"
-		className={[`px-${buttonPaddingXValue} py-2 mb-1 -mt-3 text-party-purple`, extraClassName].join(" ")}
+		className={[
+			`px-${buttonPaddingXValue} py-2 mb-1 -mt-3 text-party-purple hover:underline focus:underline`,
+			extraClassName,
+		].join(" ")}
 		{...props}
 	>
 		{children}

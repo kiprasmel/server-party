@@ -5,6 +5,8 @@ module.exports = {
 			colors: {
 				/** ( ͡° ͜ʖ ͡°) */
 				"party-green": "#39e28d",
+				"party-green-light": "#a6f2cc",
+				"party-green-dark": "#0c502e",
 				"party-purple": "#6400cf",
 				"party-black": "#222222",
 			},

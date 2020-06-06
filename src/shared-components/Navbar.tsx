@@ -10,7 +10,7 @@ export const Navbar: FC = (props) => (
 				</h1>
 			</li>
 			<li className="ml-auto border border-gray-500 rounded">
-				<Link to="/login" className="inline-block px-4 py-2">
+				<Link to="/login" className="inline-block px-3 py-1">
 					Log in
 				</Link>
 			</li>
