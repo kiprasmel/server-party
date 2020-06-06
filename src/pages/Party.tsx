@@ -14,7 +14,7 @@ import { getUniqueLocations } from "../utils/getUniqueLocations";
 export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 	const history = useHistory();
 
-	const [auth] = useAuth();
+	const { auth } = useAuth();
 
 	const { sorters, dispatchSorter, previousSorters } = useServerSorters();
 
