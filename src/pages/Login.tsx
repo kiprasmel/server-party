@@ -54,7 +54,7 @@ export const Login: FC<{}> = () => {
 	const submitElementClassName: string = [
 		`px-16 py-4 text-2xl border rounded text-white transition all duration-300`,
 		statusState.type === "success" ? "bg-party-green" : "bg-party-purple",
-		["loading", "error"].includes(statusState.type) && "opacity-50 cursor-not-allowed",
+		["loading", "error", "success"].includes(statusState.type) && "opacity-75 cursor-not-allowed",
 	].join(" ");
 
 	const handleLogin = async (e: React.MouseEvent<HTMLInputElement, MouseEvent>): Promise<void> => {
