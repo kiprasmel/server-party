@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { SectionHeader, SectionHeaderButton } from "./party/SectionHeader";
 import { Navbar } from "../shared-components/Navbar";
@@ -12,9 +12,7 @@ import { fetchServers } from "../utils/fetchServers";
 import { getUniqueLocations } from "../utils/getUniqueLocations";
 
 export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
-	const history = useHistory();
-
-	const { auth } = useAuth();
+	const { auth, redirectToLoginIfNoAuth } = useAuth();
 
 	const { sorters, dispatchSorter, previousSorters } = useServerSorters();
 
@@ -29,11 +27,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 	(window as any).servers = servers;
 
 	const fetchAndUpdateServers = () => {
-		if (!auth?.bearerToken) {
-			history.push("/login", { redirectHumanMsg: "Whoopsies, looks like you'll have to login first..." });
-			return;
-		}
-
+		redirectToLoginIfNoAuth();
 		fetchServers(auth.bearerToken).then((newServers) => setServers(sortWith(sorters, newServers)));
 	};
 

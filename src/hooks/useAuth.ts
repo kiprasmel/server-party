@@ -1,3 +1,5 @@
+import { useHistory } from "react-router-dom";
+
 import { useLocalStorage } from "./useLocalStorage";
 import { AuthDetails, localStorageAuthDetailsKey, getDefaultAuthDetails } from "../models/AuthDetails";
 
@@ -6,6 +8,7 @@ export function useAuth(): {
 	setAuth: React.Dispatch<AuthDetails>;
 	revokeAuth: () => void;
 	isAuthenticated: boolean;
+	redirectToLoginIfNoAuth: (from?: string, redirectHumanMsg?: string) => void;
 	// eslint-disable-next-line indent
 } {
 	const [auth, setAuth] = useLocalStorage<AuthDetails>(localStorageAuthDetailsKey, getDefaultAuthDetails());
@@ -14,5 +17,19 @@ export function useAuth(): {
 
 	const revokeAuth = (): void => setAuth(getDefaultAuthDetails());
 
-	return { auth, setAuth, revokeAuth, isAuthenticated };
+	const history = useHistory();
+
+	const redirectToLoginIfNoAuth = (
+		from: string = "/party",
+		redirectHumanMsg: string = "Whoopsies, looks like you'll have to login first..."
+	): void => {
+		if (!auth?.bearerToken) {
+			history.replace("/login", {
+				from,
+				redirectHumanMsg,
+			});
+		}
+	};
+
+	return { auth, setAuth, revokeAuth, isAuthenticated, redirectToLoginIfNoAuth };
 }
