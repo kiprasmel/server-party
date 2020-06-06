@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
@@ -19,6 +19,9 @@ interface State {
 
 export const Login: FC<{}> = () => {
 	const history = useHistory();
+	const location = useLocation<{ from: { pathname: string }; redirectHumanMsg: string }>();
+
+	const { from, redirectHumanMsg } = location?.state ?? { from: { pathname: "/party" }, redirectHumanMsg: "" };
 
 	const [username, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
@@ -79,7 +82,7 @@ export const Login: FC<{}> = () => {
 			]);
 
 			/** yeet */
-			history.push("/party", { prefetchedServers });
+			history.replace(from.pathname, { prefetchedServers });
 			return;
 		} catch (err) {
 			if (err?.response?.status === 401) {
@@ -96,6 +99,12 @@ export const Login: FC<{}> = () => {
 				<Navbar />
 
 				<main className="w-10/12 mx-auto mt-24">
+					{redirectHumanMsg && (
+						<div className="-mt-8 mb-8 text-center">
+							<h2 className="text-lg text-gray-700">{redirectHumanMsg}</h2>
+						</div>
+					)}
+
 					<form className="flex flex-col space-y-8">
 						<div>
 							<label htmlFor="username" className="flex flex-col">
