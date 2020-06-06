@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
+import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
 import { saveAuthToken, authenticate } from "../utils/auth";
 import { fetchServers } from "../utils/fetchServers";
@@ -145,17 +146,7 @@ export const Login: FC<{}> = () => {
 								className={submitElementClassName}
 							/>
 
-							<span>
-								<a
-									/** ¯\_(ツ)_/¯ */
-									href="https://go.kipras.org/party"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="underline italic text-gray-700"
-								>
-									I don't like parties
-								</a>
-							</span>
+							<TopSecretFeature>I don't like parties</TopSecretFeature>
 						</div>
 					</form>
 				</main>
