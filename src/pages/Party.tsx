@@ -154,7 +154,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 										<div className="space-x-2">
 											<select
-												name="priority"
+												name={`priority--${sorter.key}`}
 												id={`priority--${sorter.key}`}
 												value={sorter.priority}
 												onChange={(e) =>
