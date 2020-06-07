@@ -52,6 +52,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 	return (
 		<div className="space-y-20 pb-8">
 			<Navbar />
+
 			<header className="wrapper space-y-4 text-center">
 				{/* TODO FIXME - automatic location counting */}
 				<h1 className="text-2xl">
@@ -64,6 +65,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 			</header>
 
 			<main className="wrapper space-y-20">
+				{/* sorters */}
 				<section className="space-y-6">
 					<SectionHeader title="Sort by">
 						<SectionHeaderButton
@@ -92,119 +94,130 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 						)}
 					</SectionHeader>
 
+					{/* sorter cards */}
 					<article className="space-y-3 px-3 py-4 rounded bg-gray-300 select-none">
-						{sorters.map((sorter) => (
-							<div key={sorter.key} className="py-2 shadow-md rounded bg-white text-xl space-y-1">
-								<label
-									htmlFor={`name--${sorter.key}`}
-									className="flex justify-between w-full px-4 py-1"
-								>
-									<span className="my-auto text-gray-700 uppercase tracking-tight font-semibold">
-										{sorter.title}
-									</span>
+						{/** wrapper */}
+						<div>
+							{sorters.map((sorter) => (
+								/** sorter card */
+								<div key={sorter.key} className="py-2 shadow-md rounded bg-white text-xl space-y-1">
+									<label
+										htmlFor={`name--${sorter.key}`}
+										className="flex justify-between w-full px-4 py-1"
+									>
+										<span className="my-auto text-gray-700 uppercase tracking-tight font-semibold">
+											{sorter.title}
+										</span>
 
-									<input
-										type="checkbox"
-										name={`name--${sorter.key}`}
-										id={`name--${sorter.key}`}
-										checked={sorter.enabled}
-										onChange={() => dispatchSorter({ type: "toggleEnabled", sorter })}
-										onKeyUp={(e) => {
-											if (e.key === "Enter") {
-												dispatchSorter({ type: "toggleEnabled", sorter });
-											}
-										}}
-										className="my-auto w-6 h-6"
-									/>
-								</label>
-
-								<label
-									htmlFor={`order--${sorter.key}`}
-									aria-label="Order toggle"
-									className="flex justify-between w-full px-4 py-1"
-								>
-									<span className="my-auto">Order</span>
-
-									<div className="space-x-2">
-										<button
-											type="button"
-											id={`order--${sorter.key}`}
-											aria-label={sorter.order}
-											onClick={() => {
-												dispatchSorter({ type: "swapOrder", sorter });
+										<input
+											type="checkbox"
+											name={`name--${sorter.key}`}
+											id={`name--${sorter.key}`}
+											checked={sorter.enabled}
+											onChange={() => dispatchSorter({ type: "toggleEnabled", sorter })}
+											onKeyUp={(e) => {
+												if (e.key === "Enter") {
+													dispatchSorter({ type: "toggleEnabled", sorter });
+												}
 											}}
-											className="px-2 py-1 rounded bg-gray-300 border"
-										>
-											{sorter.order === "ascending" ? "ASC 👆" : "DESC 👇"}
-										</button>
-									</div>
-								</label>
+											className="my-auto w-6 h-6"
+										/>
+									</label>
 
-								<label
-									htmlFor={`priority--${sorter.key}`}
-									className="flex justify-between w-full px-4 py-1"
-								>
-									<span className="my-auto">Priority</span>
+									<label
+										htmlFor={`order--${sorter.key}`}
+										aria-label="Order toggle"
+										className="flex justify-between w-full px-4 py-1"
+									>
+										<span className="my-auto">Order</span>
 
-									<div className="space-x-2">
-										<select
-											name="priority"
-											id={`priority--${sorter.key}`}
-											value={sorter.priority}
-											onChange={(e) =>
-												dispatchSorter({
-													type: "updatePriority",
-													sorter,
-													newPriority: Number(e.target.value),
-												})
-											}
-											className="h-full px-3 py-1 rounded bg-gray-300"
-										>
-											{/* create "order" options in range [1, sorters.length] */}
-											{new Array(sorters.length).fill(0).map((_, index) => (
-												<option key={index + 1} value={index + 1}>
-													{index + 1}
-												</option>
-											))}
-										</select>
-										<button
-											type="button"
-											onClick={() =>
-												dispatchSorter({
-													type: "updatePriority",
-													sorter,
-													newPriority: sorter.priority + 1,
-												})
-											}
-											className="px-3 py-1 rounded bg-gray-300 w-12"
-										>
-											+
-										</button>
-										<button
-											type="button"
-											onClick={() =>
-												dispatchSorter({
-													type: "updatePriority",
-													sorter,
-													newPriority: sorter.priority - 1,
-												})
-											}
-											className="px-3 py-1 rounded bg-gray-300 w-12"
-										>
-											-
-										</button>
-									</div>
-								</label>
-							</div>
-						))}
+										<div className="space-x-2">
+											<button
+												type="button"
+												id={`order--${sorter.key}`}
+												aria-label={sorter.order}
+												onClick={() => {
+													dispatchSorter({ type: "swapOrder", sorter });
+												}}
+												className="px-2 py-1 rounded bg-gray-300 border"
+											>
+												{sorter.order === "ascending" ? "ASC 👆" : "DESC 👇"}
+											</button>
+										</div>
+									</label>
+
+									<label
+										htmlFor={`priority--${sorter.key}`}
+										className="flex justify-between w-full px-4 py-1"
+									>
+										<span className="my-auto">Priority</span>
+
+										<div className="space-x-2">
+											<select
+												name="priority"
+												id={`priority--${sorter.key}`}
+												value={sorter.priority}
+												onChange={(e) =>
+													dispatchSorter({
+														type: "updatePriority",
+														sorter,
+														newPriority: Number(e.target.value),
+													})
+												}
+												className="h-full px-3 py-1 rounded bg-gray-300"
+											>
+												{/* create "order" options in range [1, sorters.length] */}
+												{new Array(sorters.length).fill(0).map((_, index) => (
+													<option key={index + 1} value={index + 1}>
+														{index + 1}
+													</option>
+												))}
+											</select>
+											<button
+												type="button"
+												onClick={() =>
+													dispatchSorter({
+														type: "updatePriority",
+														sorter,
+														newPriority: sorter.priority + 1,
+													})
+												}
+												className="px-3 py-1 rounded bg-gray-300 w-12"
+											>
+												+
+											</button>
+											<button
+												type="button"
+												onClick={() =>
+													dispatchSorter({
+														type: "updatePriority",
+														sorter,
+														newPriority: sorter.priority - 1,
+													})
+												}
+												className="px-3 py-1 rounded bg-gray-300 w-12"
+											>
+												-
+											</button>
+										</div>
+									</label>
+								</div>
+								/** sorter card */
+							))}
+						</div>
+						{/* /wrapper */}
 					</article>
+					{/* /sorter cards */}
 				</section>
+				{/* /sorters */}
 
+				{/* servers */}
 				<section className="space-y-6">
 					<SectionHeader title="The Servers">
 						<SectionHeaderButton onClick={() => fetchAndUpdateServers()}>Refresh</SectionHeaderButton>
 					</SectionHeader>
 
+					{/* some text + refresh if no servers found */}
 					{!servers.length && (
 						<div className="space-y-2 pt-4">
 							<h3 className="text-2xl">Oh noes! The party seems to be over... </h3>
@@ -219,7 +232,9 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 							</p>
 						</div>
 					)}
+					{/* /some text + refresh if no servers found */}
 
+					{/* server cards */}
 					<ul className="space-y-3 py-4 rounded">
 						{/**
 						 * without sorting the servers here, they would get stuck
@@ -231,6 +246,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 						{/* {servers.map(({ name, distance }, index) => ( */}
 						{sortWith(sorters, servers).map(({ name, distance }, index) => (
+							/** server card */
 							<li
 								key={`${name}-${distance}`}
 								className="flex justify-between px-4 py-3 text-xl bg-party-green-light shadow-md rounded"
@@ -244,8 +260,10 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 								<span className="my-auto text-party-green-dark">{index + 1}</span>
 							</li>
+							/** /server card */
 						))}
 					</ul>
+					{/* /server cards */}
 
 					{servers.length && auth?.username && (
 						<h3>
@@ -254,10 +272,12 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					)}
 				</section>
 			</main>
+
 			<footer className="wrapper flex justify-between items-center">
 				<a href="https://kipras.org" target="_blank" rel="noopener noreferrer" className="text-gray-700">
 					Proudly by <span className="text-party-purple underline">Kipras</span>
 				</a>
+
 				<div>
 					<button
 						type="button"
