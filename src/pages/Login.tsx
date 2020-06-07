@@ -101,7 +101,7 @@ export const Login: FC<{}> = () => {
 				<main className="wrapper mt-24">
 					{redirectHumanMsg && (
 						<div className="-mt-8 mb-8 text-center">
-							<h2 className="text-lg text-gray-700">{redirectHumanMsg}</h2>
+							<h2 className="text-lg text-party-purple">{redirectHumanMsg}</h2>
 						</div>
 					)}
 
