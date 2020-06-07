@@ -1,0 +1,11 @@
+.wrapper {
+	@apply w-10/12 mx-auto;
+
+	@media (min-width: 768px) {
+		@apply w-8/12 mx-auto;
+	}
+}
+
+/* .wrapper-md {
+	@apply w-8/12 mx-auto;
+} */

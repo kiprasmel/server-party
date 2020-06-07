@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # generated
-tailwind.generated.css
+styles.generated.css
