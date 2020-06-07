@@ -11,8 +11,8 @@ export const Navbar: FC<Props> = ({ distractionless = false, ...props }) => {
 	const history = useHistory();
 
 	return (
-		<nav {...props} className="w-10/12 mx-auto pt-4">
-			<ul className="flex text-2xl">
+		<nav {...props} className="w-10/12 mx-auto pt-8 | md:pt-12">
+			<ul className="flex text-2xl -mr-3">
 				<li className="my-auto">
 					<h1 className="uppercase">
 						<Link to="/">Server Party</Link>
