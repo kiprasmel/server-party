@@ -278,8 +278,8 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 			</main>
 
 			<footer className="wrapper flex justify-between items-center">
-				<a href="https://kipras.org" target="_blank" rel="noopener noreferrer" className="text-gray-700">
-					Proudly by <span className="text-party-purple underline">Kipras</span>
+				<a href="https://kipras.org" target="_blank" rel="noopener noreferrer">
+					Proudly by <span className="text-party-purple underline font-bold">Kipras</span>
 				</a>
 
 				<div>
