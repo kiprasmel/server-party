@@ -4,12 +4,25 @@ import { useHistory, useLocation } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
+import { ReportAnIssueHref } from "../shared-components/ReportAnIssueHref";
 import { authenticate, bearerify } from "../utils/auth";
 import { fetchServers } from "../utils/fetchServers";
 import { delay } from "../utils/delay";
 
-/** XState taught me well. kinda. */
-type StatusType = "idle" | "loading" | "success" | "error";
+/**
+ * XState taught me well. kinda.
+ *
+ * Also, the "unknown-error" is perhaps unusual but very useful --
+ * we do not disable the button upon receiving it and
+ * we show the user a link where they can report the error,
+ * since, well, it's unknown.
+ *
+ * It'd probably be more beneficial to have an error
+ * tracking service setup instead and not rely on the user,
+ * but that's very much outside the scope of the current project
+ * and allowing the user to report the error is useful either way.
+ */
+type StatusType = "idle" | "loading" | "success" | "error" | "unknown-error";
 
 interface State {
 	type: StatusType;
@@ -36,7 +49,7 @@ export const Login: FC<{}> = () => {
 	 * something inside the username / password fields
 	 */
 	useEffect(() => {
-		if (statusState.type === "error") {
+		if (["error", "unknown-error"].includes(statusState.type)) {
 			setStatusState({ type: "idle" });
 		}
 	}, [username, password]);
@@ -91,8 +104,8 @@ export const Login: FC<{}> = () => {
 			if (err?.response?.status === 401) {
 				setStatusState({ type: "error", error: err, humanErrorMsg: "The username / password was incorrect." });
 			} else {
-				setStatusState({ type: "error", error: err, humanErrorMsg: "An unknown error occurred." });
-				throw err;
+				setStatusState({ type: "unknown-error", error: err, humanErrorMsg: "An unknown error occurred." });
+				(window as any).rrr = err;
 			}
 		}
 	};
@@ -143,10 +156,25 @@ export const Login: FC<{}> = () => {
 							</label>
 						</div>
 
-						{statusState.type === "error" && (
+						{["error", "unknown-error"].includes(statusState.type) && (
 							<div className="flex text-xl space-x-2">
 								<span aria-label="attention">❗</span>
-								<p>{statusState.humanErrorMsg}</p>
+								<p>
+									{statusState.humanErrorMsg}
+
+									{statusState.type === "unknown-error" && (
+										<>
+											{" "}
+											<ReportAnIssueHref
+												issueTitle="An unknown error has occured at the Login page"
+												issueDescription={`The following error occured: \n\`\`\`${statusState.error})}\n\`\`\``}
+											>
+												You can report it here
+											</ReportAnIssueHref>
+											. Thanks!
+										</>
+									)}
+								</p>
 							</div>
 						)}
 
