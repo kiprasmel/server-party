@@ -98,7 +98,7 @@ export const Login: FC<{}> = () => {
 			<div className="w-screen h-screen">
 				<Navbar />
 
-				<main className="w-10/12 mx-auto mt-24">
+				<main className="wrapper mt-24">
 					{redirectHumanMsg && (
 						<div className="-mt-8 mb-8 text-center">
 							<h2 className="text-lg text-gray-700">{redirectHumanMsg}</h2>

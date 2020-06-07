@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-interface Props {
+interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
 	distractionless?: boolean;
 }
 
@@ -11,7 +11,7 @@ export const Navbar: FC<Props> = ({ distractionless = false, ...props }) => {
 	const history = useHistory();
 
 	return (
-		<nav {...props} className="w-10/12 mx-auto pt-8 | md:pt-12">
+		<nav {...props} className="wrapper pt-8 | md:pt-12">
 			<ul className="flex text-2xl -mr-3">
 				<li className="my-auto">
 					<h1 className="uppercase">
