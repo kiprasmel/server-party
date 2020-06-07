@@ -92,6 +92,7 @@ export const Login: FC<{}> = () => {
 				setStatusState({ type: "error", error: err, humanErrorMsg: "The username / password was incorrect." });
 			} else {
 				setStatusState({ type: "error", error: err, humanErrorMsg: "An unknown error occurred." });
+				throw err;
 			}
 		}
 	};
