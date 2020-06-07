@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
 	purge: [],
 	theme: {
@@ -14,6 +16,11 @@ module.exports = {
 				"2px": "2px",
 				"-2px": "-2px",
 			},
+		},
+		screens: {
+			...defaultTheme.screens,
+			lg: "1280px",
+			xl: "1440px",
 		},
 	},
 	variants: {},
