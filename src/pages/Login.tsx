@@ -1,9 +1,10 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
+import { AuthContext } from "../contexts/AuthContext";
 import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
-import { saveAuthDetails, authenticate, bearerify } from "../utils/auth";
+import { authenticate, bearerify } from "../utils/auth";
 import { fetchServers } from "../utils/fetchServers";
 import { delay } from "../utils/delay";
 
@@ -20,6 +21,7 @@ interface State {
 export const Login: FC<{}> = () => {
 	const history = useHistory();
 	const location = useLocation<{ from: { pathname: string }; redirectHumanMsg: string }>();
+	const { setAuth } = useContext(AuthContext);
 
 	const { from, redirectHumanMsg } = location?.state ?? { from: { pathname: "/party" }, redirectHumanMsg: "" };
 
@@ -64,8 +66,9 @@ export const Login: FC<{}> = () => {
 
 		try {
 			const rawToken: string = await authenticate(username, password);
+			const bearerToken: string = bearerify(rawToken);
 
-			const { bearerToken } = saveAuthDetails({ bearerToken: bearerify(rawToken), username });
+			setAuth({ bearerToken, username });
 
 			setStatusState({ type: "success", token: bearerToken });
 

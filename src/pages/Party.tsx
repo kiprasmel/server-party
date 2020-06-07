@@ -1,13 +1,13 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 
 import { SectionHeader, SectionHeaderButton } from "./party/SectionHeader";
 import { Navbar } from "../shared-components/Navbar";
 
+import { AuthContext } from "../contexts/AuthContext";
 import { PartyServer } from "../models/PartyServer";
 import { sortWith, Sorter } from "../models/Sorter";
 import { useServerSorters } from "../hooks/useServerSorters";
-import { useAuth } from "../hooks/useAuth";
 import { fetchServers } from "../utils/fetchServers";
 import { getUniqueLocations } from "../utils/getUniqueLocations";
 
@@ -16,7 +16,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const { auth, redirectToLoginIfNoAuth } = useAuth();
+	const { auth, redirectToLoginIfNoAuth } = useContext(AuthContext);
 
 	const { sorters, dispatchSorter, previousSorters } = useServerSorters();
 

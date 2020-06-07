@@ -1,13 +1,14 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+
+import { AuthContext } from "../contexts/AuthContext";
 
 interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
 	distractionless?: boolean;
 }
 
 export const Navbar: FC<Props> = ({ distractionless = false, ...props }) => {
-	const { isAuthenticated, revokeAuth } = useAuth();
+	const { isAuthenticated, revokeAuth } = useContext(AuthContext);
 	const history = useHistory();
 
 	return (

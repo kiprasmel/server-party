@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
 
-import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../contexts/AuthContext";
 
 interface Props extends RouteProps {
 	component: any;
@@ -9,7 +9,7 @@ interface Props extends RouteProps {
 }
 
 export const PrivateRoute: FC<Props> = ({ component: Component, redirectHumanMsg, ...rest }) => {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated } = useContext(AuthContext);
 
 	console.log("isAuth", isAuthenticated);
 
