@@ -52,7 +52,7 @@ export const Login: FC<{}> = () => {
 	 * slightly custom styling based on the state
 	 */
 	const submitElementClassName: string = [
-		`px-16 py-4 text-2xl border rounded text-white transition all duration-300`,
+		`inline-block px-16 py-4 text-2xl border rounded text-white shadow-xl cursor-pointer transition all duration-300`,
 		statusState.type === "success" ? "bg-party-green" : "bg-party-purple",
 		["loading", "error", "success"].includes(statusState.type) && "opacity-75 cursor-not-allowed",
 	].join(" ");
@@ -96,12 +96,12 @@ export const Login: FC<{}> = () => {
 	return (
 		<>
 			<div className="w-screen h-screen">
-				<Navbar />
+				<Navbar distractionless />
 
-				<main className="wrapper mt-24">
+				<main className="wrapper max-w-screen-sm mt-12 | md:mt-32">
 					{redirectHumanMsg && (
-						<div className="-mt-8 mb-8 text-center">
-							<h2 className="text-lg text-party-purple">{redirectHumanMsg}</h2>
+						<div className="mb-8 text-center">
+							<h2 className="text-lg text-party-purple | md:text-2xl">{redirectHumanMsg}</h2>
 						</div>
 					)}
 
@@ -118,7 +118,7 @@ export const Login: FC<{}> = () => {
 									placeholder="tom_okman"
 									value={username}
 									onChange={(e) => setUsername(e.target.value)}
-									className="px-4 py-2 mt-1 border text-2xl"
+									className="px-4 py-2 mt-1 border border-party-black rounded text-2xl"
 								/>
 							</label>
 						</div>
@@ -134,7 +134,7 @@ export const Login: FC<{}> = () => {
 									placeholder="correcthorsebatterystaple"
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
-									className="px-4 py-2 mt-1 border text-2xl"
+									className="px-4 py-2 mt-1 border border-party-black rounded text-2xl"
 								/>
 							</label>
 						</div>
@@ -146,7 +146,7 @@ export const Login: FC<{}> = () => {
 							</div>
 						)}
 
-						<div className="flex flex-col space-y-6">
+						<div className="flex flex-col space-y-6 | lg:flex-row-reverse lg:justify-between lg:items-baseline lg:space-y-0">
 							<input
 								type="submit"
 								value={statusState.type === "success" ? "Welcome" : "Log in"}
