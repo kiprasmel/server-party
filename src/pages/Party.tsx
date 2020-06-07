@@ -95,7 +95,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					</SectionHeader>
 
 					{/* sorter cards */}
-					<article className="space-y-3 px-3 py-4 rounded bg-gray-300 select-none">
+					<article className="cluster cluster-in-1 lg:cluster-in-3 px-4 py-4 rounded bg-gray-300 select-none">
 						{/** wrapper */}
 						<div>
 							{sorters.map((sorter) => (
@@ -235,34 +235,38 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					{/* /some text + refresh if no servers found */}
 
 					{/* server cards */}
-					<ul className="space-y-3 py-4 rounded">
-						{/**
-						 * without sorting the servers here, they would get stuck
-						 * to the previous sorter configuration somehow,
-						 * even when used with `useEffect`
-						 *
-						 * TODO FIXME #lateUpdate
-						 */}
+					<div className="cluster cluster-in-1 md:cluster-in-2 lg:cluster-in-3 xl:cluster-in-4">
+						{/* wrapper */}
+						<ul>
+							{/**
+							 * without sorting the servers here, they would get stuck
+							 * to the previous sorter configuration somehow,
+							 * even when used with `useEffect`
+							 *
+							 * TODO FIXME #lateUpdate
+							 */}
 
-						{/* {servers.map(({ name, distance }, index) => ( */}
-						{sortWith(sorters, servers).map(({ name, distance }, index) => (
-							/** server card */
-							<li
-								key={`${name}-${distance}`}
-								className="flex justify-between px-4 py-3 text-xl bg-party-green-light shadow-md rounded"
-							>
-								<span>
-									<h3 className="uppercase tracking-tight text-party-green-dark">{name},</h3>
-									<p className="text-party-black">
-										<span className="my-auto">{distance}</span> km away
-									</p>
-								</span>
+							{/* {servers.map(({ name, distance }, index) => ( */}
+							{sortWith(sorters, servers).map(({ name, distance }, index) => (
+								/** server card */
+								<li
+									key={`${name}-${distance}`}
+									className="flex justify-between px-4 py-3 text-xl bg-party-green-light shadow-md rounded"
+								>
+									<span>
+										<h3 className="uppercase tracking-tight text-party-green-dark">{name},</h3>
+										<p className="text-party-black">
+											<span className="my-auto">{distance}</span> km away
+										</p>
+									</span>
 
-								<span className="my-auto text-party-green-dark">{index + 1}</span>
-							</li>
-							/** /server card */
-						))}
-					</ul>
+									<span className="my-auto text-party-green-dark">{index + 1}</span>
+								</li>
+								/** /server card */
+							))}
+						</ul>
+						{/* /wrapper */}
+					</div>
 					{/* /server cards */}
 
 					{servers.length && auth?.username && (
