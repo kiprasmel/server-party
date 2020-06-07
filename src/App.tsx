@@ -5,6 +5,7 @@ import { Landing } from "./pages/Landing";
 import { Login } from "./pages/Login";
 import { Party } from "./pages/Party";
 import { PrivateRoute } from "./shared-components/PrivateRoute";
+import { NotFound404 } from "./pages/NotFound404";
 
 function App() {
 	return (
@@ -21,6 +22,8 @@ function App() {
 						redirectHumanMsg="Looks like you'll have to login first!"
 						component={Party}
 					/>
+
+					<Route component={NotFound404} />
 				</Switch>
 			</Router>
 		</>
