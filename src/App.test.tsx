@@ -1,9 +1,14 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import App from "./App";
 
-test("renders learn react link", () => {
-	const { getByText } = render(<App />);
-	const linkElement = getByText(/learn react/i);
-	expect(linkElement).toBeInTheDocument();
+import "@testing-library/jest-dom/extend-expect"; /** typescript, autocompletions et al */
+
+import App from "./App";
+import { render } from "./test-utils";
+
+describe("App", () => {
+	it("Renders the Landing page", async () => {
+		const { getByText } = render(<App />);
+
+		expect(getByText("Let's party!")).toBeInTheDocument();
+	});
 });
