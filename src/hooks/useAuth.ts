@@ -11,8 +11,11 @@ export interface UseAuthRet {
 	redirectToLoginIfNoAuth: (from?: string, redirectHumanMsg?: string) => void;
 }
 
-export function useAuth(): UseAuthRet {
-	const [auth, setAuth] = useLocalStorage<AuthDetails>(localStorageAuthDetailsKey, getDefaultAuthDetails());
+export function useAuth(
+	authDetails: AuthDetails = getDefaultAuthDetails(),
+	localStorageKey: string = localStorageAuthDetailsKey
+): UseAuthRet {
+	const [auth, setAuth] = useLocalStorage<AuthDetails>(localStorageKey, authDetails);
 
 	const isAuthenticated: boolean = !!auth.bearerToken?.trim();
 
