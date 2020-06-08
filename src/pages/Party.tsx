@@ -16,11 +16,9 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const { auth, redirectToLoginIfNoAuth } = useContext(AuthContext);
+	const { auth } = useContext(AuthContext);
 
 	const { sorters, dispatchSorter, previousSorters } = useServerSorters();
-
-	(window as any).sorters = sorters;
 
 	const { state: { prefetchedServers } = { prefetchedServers: [] } } = useLocation<{
 		prefetchedServers: PartyServer[];
@@ -28,10 +26,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 	const [servers, setServers] = useState<PartyServer[]>(sortWith(sorters, prefetchedServers));
 
-	(window as any).servers = servers;
-
 	const fetchAndUpdateServers = () => {
-		redirectToLoginIfNoAuth();
 		fetchServers(auth.bearerToken).then((newServers) => setServers(sortWith(sorters, newServers)));
 	};
 
@@ -98,7 +93,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					<article className="cluster cluster-in-1 lg:cluster-in-3 px-4 py-4 rounded bg-gray-300 select-none">
 						{/** wrapper */}
 						<div>
-							{sorters.map((sorter) => (
+							{sorters.map((sorter, index) => (
 								/** sorter card */
 								<div key={sorter.key} className="py-2 shadow-md rounded bg-white text-xl space-y-1">
 									<label
@@ -113,6 +108,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											type="checkbox"
 											name={`name--${sorter.key}`}
 											id={`name--${sorter.key}`}
+											data-testid={`enabled--nth-${index + 1}`}
 											checked={sorter.enabled}
 											onChange={() => dispatchSorter({ type: "toggleEnabled", sorter })}
 											onKeyUp={(e) => {
@@ -135,6 +131,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											<button
 												type="button"
 												id={`order--${sorter.key}`}
+												data-testid={`order--nth-${index + 1}`}
 												aria-label={sorter.order}
 												onClick={() => {
 													dispatchSorter({ type: "swapOrder", sorter });
@@ -156,6 +153,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											<select
 												name={`priority--${sorter.key}`}
 												id={`priority--${sorter.key}`}
+												data-testid={`priority--nth-${index + 1}`}
 												value={sorter.priority}
 												onChange={(e) =>
 													dispatchSorter({
@@ -175,6 +173,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											</select>
 											<button
 												type="button"
+												data-testid={`priority--nth-${index + 1}--incr`}
 												onClick={() =>
 													dispatchSorter({
 														type: "updatePriority",
@@ -188,6 +187,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											</button>
 											<button
 												type="button"
+												data-testid={`priority--nth-${index + 1}--decr`}
 												onClick={() =>
 													dispatchSorter({
 														type: "updatePriority",
@@ -218,7 +218,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					</SectionHeader>
 
 					{/* some text + refresh if no servers found */}
-					{!servers.length && (
+					{!servers.length ? (
 						<div className="space-y-2 pt-4">
 							<h3 className="text-2xl">Oh noes! The party seems to be over... </h3>
 							<p className="text-lg">
@@ -231,7 +231,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 								</SectionHeaderButton>
 							</p>
 						</div>
-					)}
+					) : null}
 					{/* /some text + refresh if no servers found */}
 
 					{/* server cards */}
@@ -247,20 +247,30 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 							 */}
 
 							{/* {servers.map(({ name, distance }, index) => ( */}
-							{sortWith(sorters, servers).map(({ name, distance }, index) => (
+							{sortWith(sorters, servers).map(({ name, distance, id }, index) => (
 								/** server card */
 								<li
 									key={`${name}-${distance}`}
 									className="flex justify-between px-4 py-3 text-xl bg-party-green-light shadow-md rounded"
 								>
 									<span>
-										<h3 className="uppercase tracking-tight text-party-green-dark">{name},</h3>
+										<h3
+											data-testid={`server-name--nth-${index + 1}`}
+											className="uppercase tracking-tight text-party-green-dark"
+										>
+											{name}
+										</h3>
 										<p className="text-party-black">
-											<span className="my-auto">{distance}</span> km away
+											<span data-testid={`server-distance--nth-${index + 1}`} className="my-auto">
+												{distance}
+											</span>{" "}
+											km away
 										</p>
 									</span>
 
-									<span className="my-auto text-party-green-dark">{index + 1}</span>
+									<span data-testid={`server-id--${id}`} className="my-auto text-party-green-dark">
+										{index + 1}
+									</span>
 								</li>
 								/** /server card */
 							))}
@@ -269,11 +279,11 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 					</div>
 					{/* /server cards */}
 
-					{servers.length && auth?.username && (
+					{servers.length && auth?.username ? (
 						<h3>
 							Have fun, <span className="capitalize text-party-purple">{auth.username}.</span>
 						</h3>
-					)}
+					) : null}
 				</section>
 			</main>
 
