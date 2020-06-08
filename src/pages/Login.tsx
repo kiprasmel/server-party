@@ -5,7 +5,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import { TopSecretFeature } from "../shared-components/TopSecretFeature";
 import { Navbar } from "../shared-components/Navbar";
 import { ReportAnIssueHref } from "../shared-components/ReportAnIssueHref";
-import { authenticate, bearerify } from "../utils/auth";
+import { authenticate } from "../utils/authenticate";
+import { bearerify } from "../utils/auth";
 import { fetchServers } from "../utils/fetchServers";
 import { delay } from "../utils/delay";
 
@@ -81,7 +82,7 @@ export const Login: FC<{}> = () => {
 			const rawToken: string = await authenticate(username, password);
 			const bearerToken: string = bearerify(rawToken);
 
-			setAuth({ bearerToken, username });
+			setAuth({ bearerToken, username, isAuthenticated: true });
 
 			setStatusState({ type: "success", token: bearerToken });
 
@@ -105,7 +106,6 @@ export const Login: FC<{}> = () => {
 				setStatusState({ type: "error", error: err, humanErrorMsg: "The username / password was incorrect." });
 			} else {
 				setStatusState({ type: "unknown-error", error: err, humanErrorMsg: "An unknown error occurred." });
-				(window as any).rrr = err;
 			}
 		}
 	};
@@ -180,7 +180,9 @@ export const Login: FC<{}> = () => {
 
 						<div className="flex flex-col space-y-6 | lg:flex-row-reverse lg:justify-between lg:items-baseline lg:space-y-0">
 							<input
+								name="submit"
 								type="submit"
+								data-testid="login-button"
 								value={statusState.type === "success" ? "Welcome" : "Log in"}
 								onClick={(e) => handleLogin(e)}
 								disabled={["loading", "success", "error"].includes(statusState.type)}
