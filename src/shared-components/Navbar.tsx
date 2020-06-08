@@ -8,7 +8,11 @@ interface Props extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement
 }
 
 export const Navbar: FC<Props> = ({ distractionless = false, ...props }) => {
-	const { isAuthenticated, revokeAuth } = useContext(AuthContext);
+	const {
+		auth: { isAuthenticated },
+		revokeAuth,
+	} = useContext(AuthContext);
+
 	const history = useHistory();
 
 	return (
