@@ -9,9 +9,9 @@ interface Props extends RouteProps {
 }
 
 export const PrivateRoute: FC<Props> = ({ component: Component, redirectHumanMsg, ...rest }) => {
-	const { isAuthenticated } = useContext(AuthContext);
-
-	console.log("isAuth", isAuthenticated);
+	const {
+		auth: { isAuthenticated },
+	} = useContext(AuthContext);
 
 	return (
 		<Route
