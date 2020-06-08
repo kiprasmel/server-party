@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"start": "run-p watch:tailwind watch:react",
+		"start": "yarn run-p watch:tailwind watch:react",
 		"watch:tailwind": "postcss -w src/styles/styles.css -o src/styles/styles.generated.css",
 		"watch:react": "react-scripts start",
 		"build": "yarn build:tailwind && yarn build:react",
