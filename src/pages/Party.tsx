@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 
-import { SectionHeader, SectionHeaderButton } from "./party/SectionHeader";
+import { SectionHeader, SectionHeaderButton } from "../shared-components/SectionHeader";
 import { Navbar } from "../shared-components/Navbar";
 
 import { AuthContext } from "../contexts/AuthContext";
