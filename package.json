@@ -13,7 +13,7 @@
 		"eject": "react-scripts eject",
 		"lint": "    eslint . --ext js,jsx,ts,tsx",
 		"lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
-		"predeploy": "yarn build",
+		"predeploy": "yarn lint:fix && yarn test && yarn build",
 		"deploy": "yarn netlify deploy"
 	},
 	"eslintConfig": {
