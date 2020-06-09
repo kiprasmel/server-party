@@ -26,4 +26,5 @@ module.exports = {
 	variants: {},
 	plugins: [],
 	corePlugins: {},
+	target: "ie11",
 };

@@ -1,3 +1,8 @@
+/** Begin MUST be the first imports */
+import "react-app-polyfill/ie11";
+import "react-app-polyfill/stable";
+/** End MUST be the first imports */
+
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";

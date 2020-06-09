@@ -24,6 +24,7 @@ module.exports = {
 		 * https://github.com/postcss/postcss-import
 		 */
 		require("postcss-import"),
+		require("postcss-css-variables"),
 		require("tailwindcss"),
 		require("autoprefixer"),
 		...(process.env.NODE_ENV === "production" ? [purgecss] : []),
