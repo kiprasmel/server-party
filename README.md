@@ -1,8 +1,8 @@
-![](./showcase/server-party-showcase.png)
+[![](./showcase/server-party-showcase.png)](https://server-party.kipras.org)
 
-# [server-party](https://server-party.netlify.app)
+# [server-party](https://server-party.kipras.org)
 
-View the project live at [server-party.netlify.app](https://server-party.netlify.app)
+View the project live at [server-party.kipras.org](https://server-party.kipras.org)
 
 ## Setup
 
@@ -15,3 +15,11 @@ cd server-party
 yarn
 yarn start
 ```
+
+## Overview & Aftermath
+
+See the [`v1.0 overview & aftermath`](https://github.com/sarpik/server-party/issues/1).
+
+---
+
+© Kipras Melnikovas — [@sarpik](https://github.com/sarpik)
