@@ -8,7 +8,6 @@ import { Login } from "./Login";
 import { PartyServer } from "../models/PartyServer";
 
 import { authenticate as authenticateMock } from "../utils/authenticate";
-import { fetchServers as fetchServersMock } from "../utils/fetchServers";
 
 jest.mock("../utils/authenticate.ts", () => {
 	const originalModule = jest.requireActual("../utils/serverSorters.ts");
@@ -128,12 +127,5 @@ describe("Login", () => {
 		await waitFor(() => expect(loginBtn).not.toBeDisabled());
 		fireEvent.click(loginBtn);
 		await waitFor(() => expect(authenticateMock).toBeCalledTimes(2));
-	});
-
-	it("Prefetches servers if user authenticates successfully", async () => {
-		const server: PartyServer = { name: "foo #6", location: "foo", id: 6, distance: 69 };
-
-		fetchServersMock.mockImplementation(async () => [server]);
-		expect(fetchServersMock).toBeCalledTimes(0);
 	});
 });

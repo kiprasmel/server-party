@@ -36,6 +36,8 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 		}
 
 		fetchAndUpdateServers();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	/** TODO FIXME #lateUpdate */
@@ -98,6 +100,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 								<div key={sorter.key} className="py-2 shadow-md rounded bg-white text-xl space-y-1">
 									<label
 										htmlFor={`name--${sorter.key}`}
+										aria-label={`Enable toggle for ${sorter.title}`}
 										className="flex justify-between w-full px-4 py-1"
 									>
 										<span className="my-auto text-gray-700 uppercase tracking-tight font-semibold">
@@ -122,7 +125,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 
 									<label
 										htmlFor={`order--${sorter.key}`}
-										aria-label="Order toggle"
+										aria-label={`Order toggle for ${sorter.title}`}
 										className="flex justify-between w-full px-4 py-1"
 									>
 										<span className="my-auto">Order</span>
@@ -138,7 +141,15 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 												}}
 												className="px-2 py-1 rounded bg-gray-300 border"
 											>
-												{sorter.order === "ascending" ? "ASC 👆" : "DESC 👇"}
+												{sorter.order === "ascending" ? (
+													<span>
+														ASC <span role="img">👆</span>
+													</span>
+												) : (
+													<span>
+														DESC <span role="img">👇</span>
+													</span>
+												)}
 											</button>
 										</div>
 									</label>
@@ -165,12 +176,13 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 												className="h-full px-3 py-1 rounded bg-gray-300"
 											>
 												{/* create "order" options in range [1, sorters.length] */}
-												{new Array(sorters.length).fill(0).map((_, index) => (
-													<option key={index + 1} value={index + 1}>
-														{index + 1}
+												{new Array(sorters.length).fill(0).map((_, orderIndex) => (
+													<option key={orderIndex + 1} value={orderIndex + 1}>
+														{orderIndex + 1}
 													</option>
 												))}
 											</select>
+
 											<button
 												type="button"
 												data-testid={`priority--nth-${index + 1}--incr`}
@@ -185,6 +197,7 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 											>
 												+
 											</button>
+
 											<button
 												type="button"
 												data-testid={`priority--nth-${index + 1}--decr`}
@@ -299,7 +312,10 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 						className="px-3 py-2 -mr-3"
 					>
 						<span className="underline">
-							<span>Lift me up</span> <span aria-label="pointing up">☝</span>
+							<span>Lift me up</span>{" "}
+							<span role="img" aria-label="pointing up">
+								☝
+							</span>
 						</span>
 					</button>
 				</div>

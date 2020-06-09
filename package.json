@@ -13,12 +13,15 @@
 		"eject": "react-scripts eject",
 		"lint": "    eslint . --ext js,jsx,ts,tsx",
 		"lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
-		"predeploy": "yarn lint:fix && yarn test && yarn build",
+		"predeploy": "cross-env CI=true yarn test && yarn build",
 		"deploy": "yarn netlify deploy"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-sarpik"
 	},
+	"eslintIgnore": [
+		"build"
+	],
 	"browserslist": {
 		"production": [
 			">0.2%",
@@ -44,7 +47,6 @@
 		"axios": "^0.19.2",
 		"history": "^4.10.1",
 		"netlify-cli": "^2.53.0",
-		"postcss-import": "^12.0.1",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.2.0",
@@ -57,6 +59,7 @@
 		"@typescript-eslint/parser": "^2.11.0",
 		"autoprefixer": "^9.8.0",
 		"babel-eslint": "^10.0.3",
+		"cross-env": "^7.0.2",
 		"eslint": "6.x",
 		"eslint-config-airbnb": "^18.0.0",
 		"eslint-config-prettier": "^6.7.0",
@@ -73,6 +76,7 @@
 		"jest-environment-jsdom-sixteen": "^1.0.3",
 		"npm-run-all": "^4.1.5",
 		"postcss-cli": "^7.1.1",
+		"postcss-import": "^12.0.1",
 		"prettier": "^1.16.4",
 		"tailwindcss": "^1.4.6"
 	}

@@ -53,6 +53,8 @@ export const Login: FC<{}> = () => {
 		if (["error", "unknown-error"].includes(statusState.type)) {
 			setStatusState({ type: "idle" });
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [username, password]);
 
 	/**
@@ -158,7 +160,9 @@ export const Login: FC<{}> = () => {
 
 						{["error", "unknown-error"].includes(statusState.type) && (
 							<div className="flex text-xl space-x-2">
-								<span aria-label="attention">❗</span>
+								<span role="img" aria-label="attention">
+									❗
+								</span>
 								<p>
 									{statusState.humanErrorMsg}
 

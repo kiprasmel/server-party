@@ -1,10 +1,13 @@
 import React from "react";
 
 import "@testing-library/jest-dom/extend-expect"; /** typescript, autocompletions et al */
+import { History, createBrowserHistory } from "history";
 import { render, fireEvent, waitFor, screen, CustomRenderOptions } from "../test-utils";
 
 import { PartyServer } from "../models/PartyServer";
 import { Party } from "./Party";
+
+import { fetchServers as fetchServersMock } from "../utils/fetchServers";
 
 jest.mock("../utils/serverSorters.ts", () => {
 	const originalModule = jest.requireActual("../utils/serverSorters.ts");
@@ -265,5 +268,26 @@ describe("Party sorting", () => {
 				expect(server3.textContent).toBe("3");
 			});
 		});
+	});
+});
+
+describe("Party misc", () => {
+	it("Does not fetch the servers if they're already pre-fetched", async () => {
+		const prefetchedServers: PartyServer[] = [
+			{ name: "foo #6", location: "foo", id: 6, distance: 6 },
+			{ name: "bar #9", location: "bar", id: 9, distance: 9 },
+		];
+
+		fetchServersMock.mockImplementationOnce(async () => prefetchedServers);
+		fetchServersMock.mockClear(); /** reset the number of calls to `0` */
+
+		expect(fetchServersMock).toBeCalledTimes(0);
+
+		const history: History = createBrowserHistory();
+		history.push("/", { prefetchedServers });
+
+		renderParty({ history });
+
+		expect(fetchServersMock).toBeCalledTimes(0);
 	});
 });
