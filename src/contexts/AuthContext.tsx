@@ -8,7 +8,6 @@ export interface AuthContextValue {
 	auth: AuthDetails;
 	setAuth: (value: AuthDetails) => AuthDetails;
 	revokeAuth: () => void;
-	redirectToLoginIfNoAuth: (from?: string, redirectHumanMsg?: string) => void;
 }
 
 const invalidUsageMessage: string =
@@ -21,9 +20,6 @@ const initialInvalidContextValue = {
 		throw new Error(invalidUsageMessage);
 	},
 	revokeAuth: () => {
-		throw new Error(invalidUsageMessage);
-	},
-	redirectToLoginIfNoAuth: () => {
 		throw new Error(invalidUsageMessage);
 	},
 };

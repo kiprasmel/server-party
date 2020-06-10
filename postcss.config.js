@@ -19,10 +19,6 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
 
 module.exports = {
 	plugins: [
-		/**
-		 * https://tailwindcss.com/docs/using-with-preprocessors/#build-time-imports
-		 * https://github.com/postcss/postcss-import
-		 */
 		require("postcss-import"),
 		require("postcss-css-variables"),
 		require("tailwindcss"),

@@ -51,7 +51,6 @@ export const Party: FC<{ prefetchedServers?: PartyServer[] }> = () => {
 			<Navbar />
 
 			<header className="wrapper space-y-4 text-center">
-				{/* TODO FIXME - automatic location counting */}
 				<h1 className="text-2xl">
 					<span className="text-party-purple">{servers.length}</span> servers from{" "}
 					<span className="text-party-purple">{getUniqueLocations(servers).length}</span> locations partyin'

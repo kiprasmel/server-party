@@ -16,8 +16,6 @@ type ServerSorterAction = (
 
 export type ServerSorterReducer = Reducer<ServerSorter[], ServerSorterAction>;
 
-// let previousState: ServerSorter[];
-
 /**
  * using a reducer instead of state
  * to have a convenient updating API and

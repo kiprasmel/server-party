@@ -1,6 +1,6 @@
 import { getDefaultAuthDetails, localStorageAuthDetailsKey, AuthDetails } from "../models/AuthDetails";
 
-export function bearerify(rawToken: string) {
+export function bearerify(rawToken: string): string {
 	return `Bearer ${rawToken}`;
 }
 
