@@ -40,7 +40,7 @@
 
 @responsive {
 	.cluster {
-		--space: 1rem;
+		--space: 0.35rem; /* 0.35rem but somehow it broke last time so I'm just inlining */
 		overflow: hidden;
 	}
 
@@ -57,26 +57,26 @@
 	}
 
 	.cluster-in-1 > * > * {
-		width: 100%;
+		width: 100% !important;
 	}
 
 	.cluster-in-2 > * > * {
-		width: calc(50% - var(--space));
+		width: calc(50% - var(--space)) !important;
 	}
 
 	.cluster-in-3 > * > * {
-		width: calc(33.33333333% - var(--space));
+		width: calc(33.33333333% - var(--space)) !important;
 	}
 
 	.cluster-in-4 > * > * {
-		width: calc(25% - var(--space));
+		width: calc(25% - var(--space)) !important;
 	}
 
 	.cluster-in-5 > * > * {
-		width: calc(20% - var(--space));
+		width: calc(20% - var(--space)) !important;
 	}
 
 	.cluster-in-6 > * > * {
-		width: calc(16.66666666% - var(--space));
+		width: calc(16.66666666% - var(--space)) !important;
 	}
 }

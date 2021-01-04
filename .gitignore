@@ -25,3 +25,6 @@ yarn-error.log*
 
 # generated
 styles.generated.css
+
+# Local Netlify folder
+.netlify
